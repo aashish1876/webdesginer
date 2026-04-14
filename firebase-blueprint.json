@@ -1,0 +1,24 @@
+{
+  "entities": {
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "A lead or inquiry sent by a potential client through the smart contact form.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the potential client." },
+        "business": { "type": "string", "description": "The business name or project idea." },
+        "goal": { "type": "string", "description": "The main goal of the website." },
+        "budget": { "type": "string", "description": "The budget range for the project." },
+        "finish": { "type": "string", "description": "The response to the discovery call question." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "The timestamp when the inquiry was submitted." }
+      },
+      "required": ["name", "business", "goal", "budget", "finish", "createdAt"]
+    }
+  },
+  "firestore": {
+    "inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "Collection of client inquiries."
+    }
+  }
+}

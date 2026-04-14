@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.email == "aashishff2008@gmail.com" && request.auth.token.email_verified == true);
+    }
+
+    function isValidInquiry(data) {
+      return data.keys().hasAll(['name', 'business', 'goal', 'budget', 'finish', 'createdAt']) &&
+             data.keys().hasOnly(['name', 'business', 'goal', 'budget', 'finish', 'createdAt']) &&
+             data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             data.business is string && data.business.size() > 0 && data.business.size() < 200 &&
+             data.goal is string && data.goal.size() > 0 && data.goal.size() < 500 &&
+             data.budget is string && data.budget.size() > 0 && data.budget.size() < 100 &&
+             data.finish is string && data.finish.size() > 0 && data.finish.size() < 100 &&
+             data.createdAt is timestamp;
+    }
+
+    match /inquiries/{inquiryId} {
+      allow create: if isValidInquiry(request.resource.data);
+      allow read: if isAdmin();
+      allow update, delete: if isAdmin();
+    }
+  }
+}

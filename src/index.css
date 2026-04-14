@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+  
+  --color-luxury-black: #0A0A0A;
+  --color-luxury-white: #F7F7F5;
+  --color-luxury-gold: #C6A969;
+  --color-luxury-gray-soft: #7A7A7A;
+  --color-luxury-gray-light: #EAEAEA;
+}
+
+@layer base {
+  body {
+    @apply bg-luxury-white text-luxury-black selection:bg-luxury-gold/20;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .luxury-card {
+    @apply bg-white border border-luxury-gray-light shadow-sm transition-all duration-500 hover:shadow-xl hover:border-luxury-gold/30;
+  }
+  
+  .gold-gradient {
+    background: linear-gradient(135deg, #C6A969 0%, #E2D1A4 100%);
+  }
+
+  .text-gold {
+    @apply text-luxury-gold;
+  }
+
+  .section-padding {
+    @apply py-32 px-6;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+}
+
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
